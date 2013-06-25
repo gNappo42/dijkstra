@@ -1,8 +1,11 @@
 package bin;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import view.Gui;
 
 import lib.*;
 
@@ -39,6 +42,9 @@ public class main {
 			Edge edge = edges_iterator.next();
 			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ "distance "+edge.getDistance());
 		}
+		
+		Gui gui = new Gui(graph);
+		gui.init();
 		
 	}
 
