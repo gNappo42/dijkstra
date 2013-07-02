@@ -1,6 +1,7 @@
 package bin;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,8 +14,9 @@ public class main {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Node london = new Node("London");
 		Node berlin = new Node("Berlin");
