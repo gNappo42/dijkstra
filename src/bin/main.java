@@ -42,7 +42,7 @@ public class main {
 		
 		while(edges_iterator.hasNext()){
 			Edge edge = edges_iterator.next();
-			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ "distance "+edge.getDistance());
+			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ " distance "+edge.getDistance());
 		}
 		
 		Gui gui = new Gui(graph);
