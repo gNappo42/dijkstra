@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import lib.Node;
 
 public class Gui {
 	
+	static JComboBox start;
+	static JComboBox ziel;
+	static Object[] nodes;
 	public Gui(Graph graph){
 		this.graph = graph;
 	}
@@ -95,28 +100,27 @@ public class Gui {
 	}
 	
 	public JPanel create_map_panel() throws IOException{
-		Iterator<Node> nodes_iterator = this.getGraph().getNodes().iterator();
+		//Iterator<Node> nodes_iterator = this.getGraph().getNodes().iterator();
 		JButton route = new JButton("Berechnen");
-		ArrayList<String> nodes = new ArrayList<String>();
-		while(nodes_iterator.hasNext()){
-			Node node = nodes_iterator.next();
-			nodes.add(node.getName());
+		nodes = new Object[this.getGraph().getNodes().size()+1];
+		int i=1;
+		nodes[0]="";
+		for (Object o : this.getGraph().getNodes()){
+			nodes[i]=o;
+			i++;
 		}
 		DrawPanel map_panel = new DrawPanel();
-		JComboBox start = new JComboBox();
-		for (String s : nodes){
-			start.addItem(s);
-		}
+		start = new JComboBox(nodes);
 		start.setSelectedIndex(0);
-		JComboBox ziel = new JComboBox();
-		for (String s : nodes){
-			ziel.addItem(s);
-		}
+		start.addItemListener(new ComboChange());
+		ziel = new JComboBox(nodes);
 		ziel.setSelectedIndex(0);
 		File bild = new File("../Dijkstra/map_img/karte.jpg");
 		Image map = ImageIO.read(bild);
 		map_panel.setImage(map);
+		map_panel.add(new JLabel("From: "));
 		map_panel.add(start);
+		map_panel.add(new JLabel(" to Destination: "));
 		map_panel.add(ziel);
 		map_panel.add(route);
 		return map_panel;
@@ -133,5 +137,20 @@ class DrawPanel extends JPanel {
 	protected void paintComponent (Graphics g){
 		super.paintComponent(g);
 		g.drawImage(map, 0, 0, this);
+	}
+}
+
+class ComboChange implements ItemListener{
+	public void itemStateChanged(ItemEvent e){
+		JComboBox source = (JComboBox)e.getSource();
+		if (source.getName().equals("start")){
+			Gui.ziel.removeAllItems();
+			for (Object o : Gui.nodes){
+				if (!source.getSelectedItem().equals(o))
+					Gui.ziel.addItem(o);
+			}
+		}
+			
+			
 	}
 }
