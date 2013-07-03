@@ -1,12 +1,16 @@
 package bin;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 import view.Gui;
-
 import lib.*;
 
 public class main {
@@ -15,26 +19,29 @@ public class main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		File conf_file = new File("config/nodes.json");
+		String json_string = "";
+        try {
+            Scanner scanner = new Scanner(conf_file);
+            while (scanner.hasNextLine()) {
+            	json_string += scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 		
-		Node london = new Node("London");
-		Node berlin = new Node("Berlin");
-		Node wien = new Node("Wien");
-		Node rom = new Node("Rom");
-		Node paris = new Node(4, "Paris");
+		Gson gson = new Gson();
 		
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(london);
-		nodes.add(berlin);
-		nodes.add(wien);
-		nodes.add(rom);
-		nodes.add(paris);
+		Node[] json_nodes = gson.fromJson(json_string, Node[].class); 
+		System.out.println(json_nodes[0].getName());
+		
 		
 		List<Edge> edges = new ArrayList<Edge>();
-		edges.add(new Edge(london,berlin,100));
-		edges.add(new Edge(berlin,wien,200));
-		edges.add(new Edge(rom,paris,500));
+		edges.add(new Edge(json_nodes[0],json_nodes[1],100));
+		//edges.add(new Edge(berlin,wien,200));
+		//edges.add(new Edge(rom,paris,500));
 		
-		Graph graph = new Graph(nodes,edges);
+		Graph graph = new Graph(json_nodes,edges);
 		
 		Iterator<Edge> edges_iterator = graph.getEdges().iterator();
 		
