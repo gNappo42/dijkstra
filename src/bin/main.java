@@ -19,13 +19,14 @@ public class main {
 	 * @param args
 	 * @throws IOException 
 	 */
+		
 	public static void main(String[] args) throws IOException{
-		File conf_file = new File("config/nodes.json");
-		String json_string = "";
+		File nodes_file = new File("config/nodes.json");
+		String nodes_json = "";
         try {
-            Scanner scanner = new Scanner(conf_file);
+            Scanner scanner = new Scanner(nodes_file);
             while (scanner.hasNextLine()) {
-            	json_string += scanner.nextLine();
+            	nodes_json += scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -33,23 +34,29 @@ public class main {
 		
 		Gson gson = new Gson();
 		
-		Node[] json_nodes = gson.fromJson(json_string, Node[].class); 
-		System.out.println(json_nodes[0].getName());
+		Node[] json_nodes = gson.fromJson(nodes_json, Node[].class); 
 		
+		File edges_file = new File("config/edges.json");
+		String edges_json = "";
+        try {
+            Scanner scanner = new Scanner(edges_file);
+            while (scanner.hasNextLine()) {
+            	edges_json += scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 		
-		List<Edge> edges = new ArrayList<Edge>();
-		edges.add(new Edge(json_nodes[0],json_nodes[1],100));
-		//edges.add(new Edge(berlin,wien,200));
-		//edges.add(new Edge(rom,paris,500));
+		Edge[] json_edges = gson.fromJson(edges_json, Edge[].class);
 		
-		Graph graph = new Graph(json_nodes,edges);
-		
+		Graph graph = new Graph(json_nodes,json_edges);		
+/*
 		Iterator<Edge> edges_iterator = graph.getEdges().iterator();
 		
 		while(edges_iterator.hasNext()){
 			Edge edge = edges_iterator.next();
-			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ " distance "+edge.getDistance());
-		}
+			System.out.println(edge.getA());
+		}*/
 		
 		Gui gui = new Gui(graph);
 		gui.init();

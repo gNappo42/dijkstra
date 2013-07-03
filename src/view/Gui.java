@@ -103,12 +103,12 @@ public class Gui {
 			nodes.add(node.getName());
 		}
 		DrawPanel map_panel = new DrawPanel();
-		JComboBox<String> start = new JComboBox<String>();
+		JComboBox start = new JComboBox();
 		for (String s : nodes){
 			start.addItem(s);
 		}
 		start.setSelectedIndex(0);
-		JComboBox<String> ziel = new JComboBox<String>();
+		JComboBox ziel = new JComboBox();
 		for (String s : nodes){
 			ziel.addItem(s);
 		}

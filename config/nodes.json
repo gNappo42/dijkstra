@@ -1,1 +1,5 @@
-[{name: "Aachen"},{name: "London"}]
+[
+	{id: 1, name: "Aachen"},
+	{id: 2, name: "London"},
+	{id: 3, name: "Amsterdam"}
+]
