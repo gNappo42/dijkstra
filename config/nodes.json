@@ -1,5 +1,5 @@
 [
-	{id: 1, name: "Aachen"},
-	{id: 2, name: "London"},
-	{id: 3, name: "Amsterdam"}
+	{id: 1, name: "Aachen", position_x: 100, position_y: 200},
+	{id: 2, name: "London", position_x: 50, position_y: 100},
+	{id: 3, name: "Amsterdam", position_x: 100, position_y: 100}
 ]
