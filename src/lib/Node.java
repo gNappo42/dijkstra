@@ -1,5 +1,11 @@
 package lib;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import com.google.gson.Gson;
+
 public class Node {
 	
 	private static int idCounter = 0;
@@ -12,6 +18,24 @@ public class Node {
 	public Node(String name) {
 		this.id = idCounter++;
 		this.name = name;
+	}
+	
+	public static Node[] getNodesFromJson(String conf_file_path){
+		File nodes_file = new File(conf_file_path);
+		String nodes_json = "";
+        try {
+            Scanner scanner = new Scanner(nodes_file);
+            while (scanner.hasNextLine()) {
+            	nodes_json += scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+		
+		Gson gson = new Gson();
+		
+		Node[] json_nodes = gson.fromJson(nodes_json, Node[].class);
+		return json_nodes;
 	}
 	
 	public Node(int id, String name) {

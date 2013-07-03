@@ -21,42 +21,13 @@ public class main {
 	 */
 		
 	public static void main(String[] args) throws IOException{
-		File nodes_file = new File("config/nodes.json");
-		String nodes_json = "";
-        try {
-            Scanner scanner = new Scanner(nodes_file);
-            while (scanner.hasNextLine()) {
-            	nodes_json += scanner.nextLine();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 		
-		Gson gson = new Gson();
+		Node[] json_nodes = Node.getNodesFromJson("config/nodes.json");
 		
-		Node[] json_nodes = gson.fromJson(nodes_json, Node[].class); 
+		Edge[] json_edges = Edge.getEdgesFromJson("config/edges.json");
 		
-		File edges_file = new File("config/edges.json");
-		String edges_json = "";
-        try {
-            Scanner scanner = new Scanner(edges_file);
-            while (scanner.hasNextLine()) {
-            	edges_json += scanner.nextLine();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-		
-		Edge[] json_edges = gson.fromJson(edges_json, Edge[].class);
-		
-		Graph graph = new Graph(json_nodes,json_edges);		
-/*
-		Iterator<Edge> edges_iterator = graph.getEdges().iterator();
-		
-		while(edges_iterator.hasNext()){
-			Edge edge = edges_iterator.next();
-			System.out.println(edge.getA());
-		}*/
+		Graph graph = new Graph(json_nodes,json_edges);	
+
 		
 		Gui gui = new Gui(graph);
 		gui.init();
