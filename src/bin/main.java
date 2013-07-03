@@ -1,6 +1,7 @@
 package bin;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,8 +14,9 @@ public class main {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Node london = new Node("London");
 		Node berlin = new Node("Berlin");
@@ -40,7 +42,7 @@ public class main {
 		
 		while(edges_iterator.hasNext()){
 			Edge edge = edges_iterator.next();
-			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ "distance "+edge.getDistance());
+			System.out.println("From "+edge.getA().getName()+" to "+edge.getB().getName()+ " distance "+edge.getDistance());
 		}
 		
 		Gui gui = new Gui(graph);
