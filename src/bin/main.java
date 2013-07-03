@@ -1,15 +1,6 @@
 package bin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
-
-import com.google.gson.Gson;
-
 import view.Gui;
 import lib.*;
 
@@ -28,7 +19,6 @@ public class main {
 		
 		Graph graph = new Graph(json_nodes,json_edges);	
 
-		
 		Gui gui = new Gui(graph);
 		gui.init();
 		
